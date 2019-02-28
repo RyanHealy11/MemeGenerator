@@ -23,43 +23,63 @@
 
 
 
-    <Grid Margin="0,0,0,0" >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Image Grid.Row="0" Source="sucsess.jpg" Name="mainImg"/>
-        <ScrollViewer Grid.Row="1" VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=" auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--row 0 column 1-->
+        <Image Grid.Row="0" Grid.Column="1" Source="sucsess.jpg" Name="mainImg" StretchDirection="DownOnly"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" TextWrapping="Wrap" Height="22" Width="58" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="TopTextBox"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" Height="22" Width="58" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="BottomTextBox"/>
+        <!--end row 0 column 1-->
+        <!--row 0 column 0-->
+        
+        <TreeView>
+            <TreeViewItem Header="Text Boxes">
+                <TreeViewItem Header="Top Text">
+                    
+                </TreeViewItem>
+                <TreeViewItem Header="Bottom Text">
+
+                </TreeViewItem>
+                <TreeViewItem Header="fonts">
+                    <ComboBox x:Name="TextFonts" SelectedValuePath="FontFamily" SelectedIndex="0" SelectionChanged="fontChange">
+                        <ListBoxItem Content="Georgia" FontFamily="Georgia" ></ListBoxItem>
+                        <ListBoxItem Content="Palatino Linotype" FontFamily="Palatino Linotype"></ListBoxItem>
+                        <ListBoxItem Content="Times New Roman" FontFamily="Times New Roman"></ListBoxItem>
+                        <ListBoxItem Content="Arial" FontFamily="Arial"></ListBoxItem>
+                        <ListBoxItem Content="Comic Sans MS" FontFamily="Comic Sans MS"></ListBoxItem>
+                        <ListBoxItem Content="Impact" FontFamily="Impact"></ListBoxItem>
+                        <ListBoxItem Content="Courier New" FontFamily="Courier New"></ListBoxItem>
+                        <ListBoxItem Content="Lucida Console" FontFamily="Lucida Console"></ListBoxItem>
+                    </ComboBox>
+                </TreeViewItem>
+            </TreeViewItem>
+        </TreeView>
+        <!--end row 0 column 0-->
+        <!--row 1 column 1-->
+        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal" Height="100" Margin="10">
                 <StackPanel.Resources >
                     <Style TargetType="Image">
                         <Setter Property="Margin" Value="10"/>
                     </Style>
                 </StackPanel.Resources>
-                <Image  StretchDirection="DownOnly" Source="sucsess.jpg" Name="yes" MouseDown="imageSwitch" />
-                <Image StretchDirection="DownOnly" Source="knowledge.jpg" Name="think" MouseDown="imageSwitch"/>
-                <Image StretchDirection="DownOnly" Source="sucsess.jpg" />
-                <Image StretchDirection="DownOnly" Source="sucsess.jpg"/>
-                <Image StretchDirection="DownOnly" Source="sucsess.jpg" />
-                <Image StretchDirection="DownOnly" Source="sucsess.jpg"/>
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"  />
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="knowledge.jpg" />
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
             </StackPanel>
         </ScrollViewer>
-        <!--<TreeView>
-        <ListBox ItemsSource="{Binding}" ItemTemplate="{DynamicResource myImgTemplate}" x:Name="Butt"/>
-                <TreeViewItem Header="North America">
-                    <StackPanel>
-                        <TextBlock Margin="10" FontSize="20">How do you like your coffee?</TextBlock>
-                        <Button >Black</Button>
-                        <Button >With milk</Button>
-                        <Button >Latte machiato</Button>
-                        <Button >Chappuchino</Button>
-                    </StackPanel>
-                </TreeViewItem>
-                <TreeViewItem Header="South America">
-                    <TreeViewItem Header="Argentina"></TreeViewItem>
-                    <TreeViewItem Header="Brazil"></TreeViewItem>
-                    <TreeViewItem Header="Uruguay"></TreeViewItem>
-                </TreeViewItem>
-            </TreeView>-->
+
+        <!--row 1 column 1-->
     </Grid>
 </Window>

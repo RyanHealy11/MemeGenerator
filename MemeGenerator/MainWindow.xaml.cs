@@ -55,7 +55,13 @@ namespace MemeGenerator
 
         private void imageSwitch(object sender, MouseButtonEventArgs e)
         {
-            //mainImg.Source = ;
+            mainImg.Source = ((Image)sender).Source ;
+        }
+
+        private void fontChange(object sender, SelectionChangedEventArgs e)
+        {
+            TopTextBox.FontFamily = (FontFamily)TextFonts.SelectedValue;
+            BottomTextBox.FontFamily = (FontFamily)TextFonts.SelectedValue;
         }
     }
 }
