@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+
 
 namespace MemeGenerator
 {
@@ -60,8 +62,32 @@ namespace MemeGenerator
 
         private void fontChange(object sender, SelectionChangedEventArgs e)
         {
-            TopTextBox.FontFamily = (FontFamily)TextFonts.SelectedValue;
-            BottomTextBox.FontFamily = (FontFamily)TextFonts.SelectedValue;
+            if (TopTextBox != null && BottomTextBox != null)
+            {
+                TopTextBox.FontFamily = (FontFamily)TextFonts.SelectedValue;
+                BottomTextBox.FontFamily = (FontFamily)TextFonts.SelectedValue;
+            }
+        }
+
+        private void FontSizeChange(object sender, TextChangedEventArgs e)
+        {
+            if (TopTextBox != null && BottomTextBox != null)
+            {
+                if (Regex.IsMatch(FontSize.Text, @"^[0-9]+$"))
+                {
+                    TopTextBox.FontSize = Convert.ToInt32(FontSize.Text);
+                    BottomTextBox.FontSize = Convert.ToInt32(FontSize.Text);
+                    Console.WriteLine("boop");
+                }
+            }
+        }
+
+        private void ColorChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Color color = Color.FromRgb((byte)RedSlider.Value, (byte)GreenSlider.Value, (byte)BlueSlider.Value);
+
+            TopTextBox.Foreground = new SolidColorBrush(color);
+            BottomTextBox.Foreground = new SolidColorBrush(color);
         }
     }
 }

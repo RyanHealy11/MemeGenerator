@@ -32,18 +32,12 @@
             <ColumnDefinition Width=" auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <!--row 0 column 1-->
-        <Image Grid.Row="0" Grid.Column="1" Source="sucsess.jpg" Name="mainImg" StretchDirection="DownOnly"/>
-        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" TextWrapping="Wrap" Height="22" Width="58" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="TopTextBox"/>
-        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" Height="22" Width="58" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="BottomTextBox"/>
-        <!--end row 0 column 1-->
+
         <!--row 0 column 0-->
-        
         <TreeView>
             <TreeViewItem Header="Text Boxes">
                 <TreeViewItem Header="Top Text">
-                    
+
                 </TreeViewItem>
                 <TreeViewItem Header="Bottom Text">
 
@@ -60,9 +54,31 @@
                         <ListBoxItem Content="Lucida Console" FontFamily="Lucida Console"></ListBoxItem>
                     </ComboBox>
                 </TreeViewItem>
+                <TreeViewItem Header="Font Size">
+                    <TextBox  x:Name="FontSize" Width="40" Text="40"  TextChanged="FontSizeChange"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Font Color">
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+                        <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="RedSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="ColorChange" />
+                        <TextBox Text="{Binding Value, ElementName=RedSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment="Center" Margin="10">
+                        <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="GreenSlider" Width="100" IsSnapToTickEnabled="True"/>
+                        <TextBox Text="{Binding Value, ElementName=GreenSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment="Center" Margin="10">
+                        <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="BlueSlider" Width="100" IsSnapToTickEnabled="True"/>
+                        <TextBox Text="{Binding Value, ElementName=BlueSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                    </DockPanel>
+                </TreeViewItem>
             </TreeViewItem>
         </TreeView>
         <!--end row 0 column 0-->
+        <!--row 0 column 1-->
+        <Image Grid.Row="0" Grid.Column="1" Source="sucsess.jpg" Name="mainImg" StretchDirection="DownOnly"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" TextWrapping="Wrap" Height="22" Width="auto" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="TopTextBox"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" Height="22" Width="auto" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="BottomTextBox"/>
+        <!--end row 0 column 1-->
         <!--row 1 column 1-->
         <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal" Height="100" Margin="10">
