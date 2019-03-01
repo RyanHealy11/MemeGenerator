@@ -8,14 +8,15 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Window.Resources>
-        <DataTemplate x:Key="myImgTemplate">
-            <StackPanel Orientation="Horizontal">
+        <DataTemplate x:Key="myTextTemplate">
+            <StackPanel Orientation="Horizontal" MouseUp="ChangeText">
                 <StackPanel.Resources>
-                    <Style TargetType="Image">
+                    <Style TargetType="TextBlock">
                         <Setter Property="Margin" Value="10"/>
                     </Style>
                 </StackPanel.Resources>
-                <Image Source="{Binding Path=Name}"/>
+                <TextBlock Name="TTop" Text="{Binding Path=top}"/>
+                <TextBlock Name="TBottom" Text="{Binding Path=bottom}"/>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
@@ -37,13 +38,75 @@
         <TreeView>
             <TreeViewItem Header="Text Boxes">
                 <TreeViewItem Header="Top Text">
-
+                    <TreeViewItem Header="Fonts">
+                        <ComboBox x:Name="TTextFonts" SelectedValuePath="FontFamily" SelectedIndex="0" SelectionChanged="TfontChange" IsEditable="True">
+                            <ListBoxItem Content="Georgia" FontFamily="Georgia" ></ListBoxItem>
+                            <ListBoxItem Content="Palatino Linotype" FontFamily="Palatino Linotype"></ListBoxItem>
+                            <ListBoxItem Content="Times New Roman" FontFamily="Times New Roman"></ListBoxItem>
+                            <ListBoxItem Content="Arial" FontFamily="Arial"></ListBoxItem>
+                            <ListBoxItem Content="Comic Sans MS" FontFamily="Comic Sans MS"></ListBoxItem>
+                            <ListBoxItem Content="Impact" FontFamily="Impact"></ListBoxItem>
+                            <ListBoxItem Content="Courier New" FontFamily="Courier New"></ListBoxItem>
+                            <ListBoxItem Content="Lucida Console" FontFamily="Lucida Console"></ListBoxItem>
+                        </ComboBox>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Font Size">
+                        <TextBox  x:Name="TFontSize" Width="40" Text="12"  TextChanged="TFontSizeChange"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Font Color">
+                        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <TextBox Text="R:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                            <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="TRedSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="TColorChange" />
+                            <TextBox Text="{Binding Value, ElementName=TRedSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center" Margin="10">
+                            <TextBox Text="G:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                            <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="TGreenSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="TColorChange"/>
+                            <TextBox Text="{Binding Value, ElementName=TGreenSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center" Margin="10">
+                            <TextBox Text="B:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                            <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="TBlueSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="TColorChange"/>
+                            <TextBox Text="{Binding Value, ElementName=TBlueSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                        </DockPanel>
+                    </TreeViewItem>
                 </TreeViewItem>
                 <TreeViewItem Header="Bottom Text">
-
+                    <TreeViewItem Header="Fonts">
+                        <ComboBox x:Name="BTextFonts" SelectedValuePath="FontFamily" SelectedIndex="0" SelectionChanged="BfontChange" IsEditable="True">
+                            <ListBoxItem Content="Georgia" FontFamily="Georgia" ></ListBoxItem>
+                            <ListBoxItem Content="Palatino Linotype" FontFamily="Palatino Linotype"></ListBoxItem>
+                            <ListBoxItem Content="Times New Roman" FontFamily="Times New Roman"></ListBoxItem>
+                            <ListBoxItem Content="Arial" FontFamily="Arial"></ListBoxItem>
+                            <ListBoxItem Content="Comic Sans MS" FontFamily="Comic Sans MS"></ListBoxItem>
+                            <ListBoxItem Content="Impact" FontFamily="Impact"></ListBoxItem>
+                            <ListBoxItem Content="Courier New" FontFamily="Courier New"></ListBoxItem>
+                            <ListBoxItem Content="Lucida Console" FontFamily="Lucida Console"></ListBoxItem>
+                        </ComboBox>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Font Size">
+                        <TextBox  x:Name="BFontSize" Width="40" Text="12"  TextChanged="BFontSizeChange"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Font Color">
+                        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <TextBox Text="R:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                            <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="BRedSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="BColorChange" />
+                            <TextBox Text="{Binding Value, ElementName=BRedSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center" Margin="10">
+                            <TextBox Text="G:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                            <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="BGreenSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="BColorChange"/>
+                            <TextBox Text="{Binding Value, ElementName=BGreenSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center" Margin="10">
+                            <TextBox Text="B:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                            <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="BBlueSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="BColorChange"/>
+                            <TextBox Text="{Binding Value, ElementName=BBlueSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
+                        </DockPanel>
+                    </TreeViewItem>
                 </TreeViewItem>
                 <TreeViewItem Header="fonts">
-                    <ComboBox x:Name="TextFonts" SelectedValuePath="FontFamily" SelectedIndex="0" SelectionChanged="fontChange">
+                    <ComboBox x:Name="TextFonts" SelectedValuePath="FontFamily" SelectedIndex="0" SelectionChanged="fontChange" IsEditable="True">
                         <ListBoxItem Content="Georgia" FontFamily="Georgia" ></ListBoxItem>
                         <ListBoxItem Content="Palatino Linotype" FontFamily="Palatino Linotype"></ListBoxItem>
                         <ListBoxItem Content="Times New Roman" FontFamily="Times New Roman"></ListBoxItem>
@@ -55,29 +118,46 @@
                     </ComboBox>
                 </TreeViewItem>
                 <TreeViewItem Header="Font Size">
-                    <TextBox  x:Name="FontSize" Width="40" Text="40"  TextChanged="FontSizeChange"/>
+                    <TextBox  x:Name="FontSize" Width="40" Text="12"  TextChanged="FontSizeChange"/>
                 </TreeViewItem>
                 <TreeViewItem Header="Font Color">
                     <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+                        <TextBox Text="R:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
                         <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="RedSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="ColorChange" />
                         <TextBox Text="{Binding Value, ElementName=RedSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment="Center" Margin="10">
-                        <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="GreenSlider" Width="100" IsSnapToTickEnabled="True"/>
+                        <TextBox Text="G:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                        <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="GreenSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="ColorChange"/>
                         <TextBox Text="{Binding Value, ElementName=GreenSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment="Center" Margin="10">
-                        <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="BlueSlider" Width="100" IsSnapToTickEnabled="True"/>
+                        <TextBox Text="B:"  DockPanel.Dock="Left" Background="Transparent" BorderBrush="Transparent" IsReadOnly="True"/>
+                        <Slider Maximum="255" TickPlacement="BottomRight" TickFrequency="5" x:Name="BlueSlider" Width="100" IsSnapToTickEnabled="True" ValueChanged="ColorChange"/>
                         <TextBox Text="{Binding Value, ElementName=BlueSlider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" Width="40"/>
                     </DockPanel>
+                </TreeViewItem>
+            </TreeViewItem>
+            <TreeViewItem Header="Preset Text">
+                <TreeViewItem Header="Success Kid">
+                    <ListBox ItemsSource="{Binding}" ItemTemplate="{DynamicResource myTextTemplate}" x:Name="Success" Width="auto"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Think">
+                    <ListBox ItemsSource="{Binding}" ItemTemplate="{DynamicResource myTextTemplate}" x:Name="Think" Width="auto"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Too High">
+                    <ListBox ItemsSource="{Binding}" ItemTemplate="{DynamicResource myTextTemplate}" x:Name="High" Width="auto"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Not Sure Fry">
+                    <ListBox ItemsSource="{Binding}" ItemTemplate="{DynamicResource myTextTemplate}" x:Name="Fry" Width="auto"/>
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>
         <!--end row 0 column 0-->
         <!--row 0 column 1-->
         <Image Grid.Row="0" Grid.Column="1" Source="sucsess.jpg" Name="mainImg" StretchDirection="DownOnly"/>
-        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" TextWrapping="Wrap" Height="22" Width="auto" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="TopTextBox"/>
-        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" Height="22" Width="auto" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="BottomTextBox"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" TextWrapping="Wrap" Height="auto" Width="auto" MaxWidth="200" MaxLines="2" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="TopTextBox"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" Height="auto" Width="auto" MaxWidth="200" MaxLines="2" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="BottomTextBox"/>
         <!--end row 0 column 1-->
         <!--row 1 column 1-->
         <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Auto">
@@ -89,10 +169,9 @@
                 </StackPanel.Resources>
                 <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"  />
                 <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="knowledge.jpg" />
-                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
-                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
-                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
-                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="sucsess.jpg"/>
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="TooHigh.jpg"/>
+                <Image StretchDirection="DownOnly" MouseDown="imageSwitch" Source="NotSureFry.jpg"/>
+               
             </StackPanel>
         </ScrollViewer>
 

@@ -16,3 +16,5 @@ C:\Users\s189071\source\repos\MemeGenerator\MemeGenerator\obj\Debug\MemeGenerato
 C:\Users\s189071\source\repos\MemeGenerator\MemeGenerator\bin\Debug\sucsess.jpg
 C:\Users\s189071\source\repos\MemeGenerator\MemeGenerator\obj\Debug\MemeGenerator_Content.g.cs
 C:\Users\s189071\source\repos\MemeGenerator\MemeGenerator\bin\Debug\knowledge.jpg
+C:\Users\s189071\source\repos\MemeGenerator\MemeGenerator\bin\Debug\NotSureFry.jpg
+C:\Users\s189071\source\repos\MemeGenerator\MemeGenerator\bin\Debug\TooHigh.jpg

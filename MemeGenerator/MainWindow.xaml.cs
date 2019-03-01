@@ -32,18 +32,42 @@ namespace MemeGenerator
             Name = v1;
         }
     }
+    class DefaultText
+    {
+        private string Top;
+        private string Bottom;
 
+        public string top { get => Top; set => Top = value; }
+        public string bottom { get => Bottom; set => Bottom = value; }
+
+        public DefaultText(string toptext, string bottomtext)
+        {
+            top = toptext;
+            bottom = bottomtext;
+        }
+    }
 
 
 
     public partial class MainWindow : Window
     {
+        List<DefaultText> SuccessText = new List<DefaultText>();
+        List<DefaultText> FryText = new List<DefaultText>();
+        List<DefaultText> ThinkText = new List<DefaultText>();
+        List<DefaultText> HighText = new List<DefaultText>();
         List<MemeImage> MemeImgTable = new List<MemeImage>();
         public MainWindow()
         {
             InitializeComponent();
-            //LoadMemeImgTable();
-            //Butt.DataContext = MemeImgTable;
+            LoadSuccessText();
+            LoadFryText();
+            LoadHighText();
+            LoadThinkText();
+            
+            Success.DataContext = SuccessText;
+            Think.DataContext = ThinkText;
+            Fry.DataContext = FryText;
+            High.DataContext = HighText;
         }
 
         void LoadMemeImgTable()
@@ -55,6 +79,46 @@ namespace MemeGenerator
             }
         }
 
+        void LoadSuccessText()
+        {
+            string[] tmpvals;
+            string[] lines = System.IO.File.ReadAllLines("SuccessKidText.txt");
+            foreach (string s in lines)
+            {
+                tmpvals = s.Split(',');
+                SuccessText.Add(new DefaultText(tmpvals[0], tmpvals[1])); 
+            }
+        }
+        void LoadFryText()
+        {
+            string[] tmpvals;
+            string[] lines = System.IO.File.ReadAllLines("NotSureFryText.txt");
+            foreach (string s in lines)
+            {
+                tmpvals = s.Split(',');
+                FryText.Add(new DefaultText(tmpvals[0], tmpvals[1]));
+            }
+        }
+        void LoadThinkText()
+        {
+            string[] tmpvals;
+            string[] lines = System.IO.File.ReadAllLines("ThinkText.txt");
+            foreach (string s in lines)
+            {
+                tmpvals = s.Split(',');
+                ThinkText.Add(new DefaultText(tmpvals[0], tmpvals[1]));
+            }
+        }
+        void LoadHighText()
+        {
+            string[] tmpvals;
+            string[] lines = System.IO.File.ReadAllLines("TooHighText.txt");
+            foreach (string s in lines)
+            {
+                tmpvals = s.Split(',');
+                HighText.Add(new DefaultText(tmpvals[0], tmpvals[1]));
+            }
+        }
         private void imageSwitch(object sender, MouseButtonEventArgs e)
         {
             mainImg.Source = ((Image)sender).Source ;
@@ -68,6 +132,20 @@ namespace MemeGenerator
                 BottomTextBox.FontFamily = (FontFamily)TextFonts.SelectedValue;
             }
         }
+        private void TfontChange(object sender, SelectionChangedEventArgs e)
+        {
+            if (TopTextBox != null )
+            {
+                TopTextBox.FontFamily = (FontFamily)TTextFonts.SelectedValue;               
+            }
+        }
+        private void BfontChange(object sender, SelectionChangedEventArgs e)
+        {
+            if (BottomTextBox != null)
+            {
+                BottomTextBox.FontFamily = (FontFamily)BTextFonts.SelectedValue;
+            }
+        }
 
         private void FontSizeChange(object sender, TextChangedEventArgs e)
         {
@@ -77,7 +155,26 @@ namespace MemeGenerator
                 {
                     TopTextBox.FontSize = Convert.ToInt32(FontSize.Text);
                     BottomTextBox.FontSize = Convert.ToInt32(FontSize.Text);
-                    Console.WriteLine("boop");
+                }
+            }
+        }
+        private void TFontSizeChange(object sender, TextChangedEventArgs e)
+        {
+            if (TopTextBox != null)
+            {
+                if (Regex.IsMatch(FontSize.Text, @"^[0-9]+$"))
+                {
+                    TopTextBox.FontSize = Convert.ToInt32(TFontSize.Text);                  
+                }
+            }
+        }
+        private void BFontSizeChange(object sender, TextChangedEventArgs e)
+        {
+            if (BottomTextBox != null)
+            {
+                if (Regex.IsMatch(FontSize.Text, @"^[0-9]+$"))
+                {
+                    BottomTextBox.FontSize = Convert.ToInt32(BFontSize.Text);
                 }
             }
         }
@@ -88,6 +185,26 @@ namespace MemeGenerator
 
             TopTextBox.Foreground = new SolidColorBrush(color);
             BottomTextBox.Foreground = new SolidColorBrush(color);
+        }
+
+        private void TColorChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Color color = Color.FromRgb((byte)TRedSlider.Value, (byte)TGreenSlider.Value, (byte)TBlueSlider.Value);
+
+            TopTextBox.Foreground = new SolidColorBrush(color);
+        }
+
+        private void BColorChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Color color = Color.FromRgb((byte)BRedSlider.Value, (byte)BGreenSlider.Value, (byte)BBlueSlider.Value);
+
+            BottomTextBox.Foreground = new SolidColorBrush(color);
+        }
+
+        private void ChangeText(object sender, MouseButtonEventArgs e)
+        {         
+            TopTextBox.Text = ((TextBlock)((StackPanel)sender).Children[0]).Text;
+            BottomTextBox.Text = ((TextBlock)((StackPanel)sender).Children[1]).Text;
         }
     }
 }

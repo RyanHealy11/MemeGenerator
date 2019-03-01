@@ -9,6 +9,8 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("knowledge.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("notsurefry.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sucsess.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("toohigh.jpg")]
 
 
