@@ -9,6 +9,7 @@
 
     <Window.Resources>
         <DataTemplate x:Key="myTextTemplate">
+            
             <StackPanel Orientation="Horizontal" MouseUp="ChangeText">
                 <StackPanel.Resources>
                     <Style TargetType="TextBlock">
@@ -18,6 +19,7 @@
                 <TextBlock Name="TTop" Text="{Binding Path=top}"/>
                 <TextBlock Name="TBottom" Text="{Binding Path=bottom}"/>
             </StackPanel>
+            
         </DataTemplate>
     </Window.Resources>
 
@@ -36,7 +38,7 @@
 
         <!--row 0 column 0-->
         <TreeView>
-            <TreeViewItem Header="Text Boxes">
+            <TreeViewItem Header="Text Boxes" Background="#00000000">
                 <TreeViewItem Header="Top Text">
                     <TreeViewItem Header="Fonts">
                         <ComboBox x:Name="TTextFonts" SelectedValuePath="FontFamily" SelectedIndex="0" SelectionChanged="TfontChange" IsEditable="True">
@@ -154,11 +156,19 @@
             </TreeViewItem>
         </TreeView>
         <!--end row 0 column 0-->
+        
         <!--row 0 column 1-->
+        
         <Image Grid.Row="0" Grid.Column="1" Source="sucsess.jpg" Name="mainImg" StretchDirection="DownOnly"/>
         <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" TextWrapping="Wrap" Height="auto" Width="auto" MaxWidth="200" MaxLines="2" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="TopTextBox"/>
         <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" Height="auto" Width="auto" MaxWidth="200" MaxLines="2" Text="TextBox" FontFamily="Georgia" Background="Transparent" BorderBrush="Transparent" Name="BottomTextBox"/>
         <!--end row 0 column 1-->
+
+        <!--row 1 column 0-->
+        <Button Grid.ColumnSpan="2" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Grid.Row="1"  Width="75" Click="SaveImg"/>
+
+        <!--end row 1 column 1-->
+        
         <!--row 1 column 1-->
         <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal" Height="100" Margin="10">

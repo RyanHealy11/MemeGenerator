@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.IO;
+using Microsoft.Win32;
 
 
 namespace MemeGenerator
@@ -205,6 +207,43 @@ namespace MemeGenerator
         {         
             TopTextBox.Text = ((TextBlock)((StackPanel)sender).Children[0]).Text;
             BottomTextBox.Text = ((TextBlock)((StackPanel)sender).Children[1]).Text;
+        }
+
+        private void SaveImg(object sender, RoutedEventArgs e)
+        {
+            Image SSelectedImg = mainImg;
+
+            BitmapImage SelectedImg = new BitmapImage();
+            SelectedImg.BeginInit();
+            SelectedImg.UriSource = new Uri(mainImg.Source.ToString());
+            SelectedImg.EndInit();
+
+            FormattedText TopText = new FormattedText(TopTextBox.Text, new System.Globalization.CultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface(TopTextBox.FontFamily, FontStyles.Normal, FontWeights.Normal, new FontStretch()), TopTextBox.FontSize, TopTextBox.Foreground);
+            FormattedText BottomText = new FormattedText(BottomTextBox.Text, new System.Globalization.CultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface(BottomTextBox.FontFamily, FontStyles.Normal, FontWeights.Normal, new FontStretch()), BottomTextBox.FontSize, BottomTextBox.Foreground);
+
+            DrawingVisual drawingVisual = new DrawingVisual();
+            DrawingContext drawingContext = drawingVisual.RenderOpen();
+            drawingContext.DrawImage(SelectedImg, new Rect(0, 0, SelectedImg.Width, SelectedImg.Height));
+            drawingContext.DrawText(TopText, new Point((SSelectedImg.ActualWidth / 2), 2));
+            drawingContext.DrawText(BottomText, new Point((SSelectedImg.ActualWidth / 2), ((SSelectedImg.ActualHeight - BottomTextBox.FontSize) - 4)));
+            drawingContext.Close();
+
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)SSelectedImg.ActualWidth, (int)SSelectedImg.ActualHeight, 96 , 96 , PixelFormats.Pbgra32);
+            bmp.Render(drawingVisual);
+           // SelectedImg.Source = bmp;
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Image files (*.jpeg;*)|*.jpeg;*|All files (*.*)|*.*";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                JpegBitmapEncoder jpeg = new JpegBitmapEncoder();
+                jpeg.Frames.Add(BitmapFrame.Create(bmp));
+                using (Stream stm = File.Create(saveFileDialog.FileName))
+                {
+                    jpeg.Save(stm);
+                }
+            }
         }
     }
 }
